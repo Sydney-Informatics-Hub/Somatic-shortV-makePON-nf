@@ -12,6 +12,7 @@ nextflow.enable.dsl=2
 include { checkInputs                                                    } from './modules/check_cohort'
 include { run_Mutect2_eachNormalSample_splitGatherApproach               } from './modules/run_Mutect2_eachNormalSample_splitGatherApproach'
 include { GatherVcfs_step                                                } from './modules/GatherVcfs_step'
+include { create_sample_map_file                                         } from './modules/create_sample_map_file'
 include { Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport     } from './modules/Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport'
 include { Combine_normalCallsUsing_CreateSomaticPanelOfNormals           } from './modules/Combine_normalCallsUsing_CreateSomaticPanelOfNormals'
 
@@ -127,9 +128,11 @@ workflow {
   
   run_Mutect2_eachNormalSample_splitGatherApproach(bam_pair_ch,params.intervalList)
 
-  //GatherVcfs_step(run_Mutect2_eachNormalSample_splitGatherApproach.out.collect(),bam_pair_ch)
+  GatherVcfs_step(run_Mutect2_eachNormalSample_splitGatherApproach.out.collect(),bam_pair_ch)
 
-  //Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport(GatherVcfs_step.out[0].collect())
+  create_sample_map_file(GatherVcfs_step.out[0].collect())
+  
+  Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport(create_sample_map_file.out)
 
   //Combine_normalCallsUsing_CreateSomaticPanelOfNormals(Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport.out)
 
