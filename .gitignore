@@ -1,0 +1,20 @@
+# Ignore log files
+*.log
+*.o
+*.e
+
+# Ignore temporary files
+temp/
+
+# Ignore a specific file
+config.txt
+
+# Ignore the  work folder
+results
+
+# Ignore the  results folder
+results
+
+
+
+
