@@ -1,0 +1,22 @@
+# Ignore log files
+*.log
+*.o
+*.e
+.nextflow.log*
+
+# Ignore temporary files
+temp/
+
+# Ignore a specific file
+config.txt
+
+# Ignore the  work folder
+work
+
+
+# Ignore the  results folder
+results
+
+
+
+
