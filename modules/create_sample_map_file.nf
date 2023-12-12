@@ -14,6 +14,7 @@ process create_sample_map_file {
             path ('*')
         output:
             path ("sample_map_vcf.txt")
+
 '''
 # Create an empty text file to store the paths
         output_file="sample_map_vcf.txt"
@@ -29,7 +30,7 @@ process create_sample_map_file {
                 current_dir=$(pwd)
 
                 # Write the formatted path to the output file
-                echo -e "${patient_name}\t${current_dir}/${file}" >> "$output_file"
+                echo -e "${patient_name}\t${file}" >> "$output_file"
 
                 ((count++))  # Increment patient count
         done

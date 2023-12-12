@@ -40,20 +40,19 @@ To run this pipeline, you will need to prepare your input files, reference data,
 
 To run this pipeline you will need the following inputs: 
 
-* Paired-end BAM files
+* Paired `Tumor-Normal` BAM files
 * Corresponding BAM index files  
 * Input sample sheet 
 
+This pipeline processes paired BAM files and is capable of processing multiple samples in parallel. BAM files are expected to be coordinate sorted and indexed (see [Fastq-to-BAM](https://github.com/Sydney-Informatics-Hub/Fastq-to-BAM) for an example of a best practice workflow that can generate these files).  
 
-#
-This pipeline processes paired-end BAM files and is capable of processing multiple samples in parallel. BAM files are expected to be coordinate sorted and indexed (see [Fastq-to-BAM](https://github.com/Sydney-Informatics-Hub/Fastq-to-BAM) for an example of a best practice workflow that can generate these files).  
+You will need to create a sample sheet with information about the samples you are processing, before running the pipeline. This file must be **tab-separated** and contain a header and one row per sample. Columns should correspond to sampleID, BAM-N file, BAM-T file: 
 
-You will need to create a sample sheet with information about the samples you are processing, before running the pipeline. This file must be **tab-separated** and contain a header and one row per sample. Columns should correspond to sampleID, BAM file, BAI file: 
-
-|sampleID|bam                   |bai                       |
+|sampleID|bam-N                   |bam-T                       |
 |--------|----------------------|--------------------------|
-|SAMPLE1 |/data/Bams/sample1.bam|/data/Bams/sample1.bam.bai|
-|SAMPLE2 |/data/Bams/sample2.bam|/data/Bams/sample2.bam.bai|
+|SAMPLE1 |/data/Bams/sample1-N.bam|/data/Bams/sample1-T.bam|
+|SAMPLE2 |/data/Bams/sample2-N.bam|/data/Bams/sample2-T.bam|
+
 
 When you run the pipeline, you will use the mandatory `--input` parameter to specify the location and name of the input file: 
 
@@ -81,7 +80,7 @@ When you run the pipeline, you will use the mandatory `--ref` parameter to speci
 Download the code contained in this repository with: 
 
 ```
-git clone https://github.com/Sydney-Informatics-Hub/SomaticShortV_makePON-nf
+git clone https://github.com/Sydney-Informatics-Hub/Somatic-shortV-makePON-nf
 ```
 
 This will create a directory with the following structure: 
@@ -90,8 +89,10 @@ SomaticShortV_makePON-nf/
 ├── LICENSE
 ├── README.md
 ├── config/
+├── images/
 ├── main.nf
 ├── modules/
+├── PBS_gadi_runPipeline.sh
 └── nextflow.config
 ```
 The important features are: 
