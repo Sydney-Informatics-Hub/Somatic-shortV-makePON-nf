@@ -12,7 +12,6 @@ process Combine_normalCallsUsing_CreateSomaticPanelOfNormals {
 
         input:
 	        path pon_db
-        	
 
         output:
                 path 'pon.vcf.gz'

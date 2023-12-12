@@ -132,9 +132,9 @@ workflow {
 
   create_sample_map_file(GatherVcfs_step.out[0].collect())
   
-  Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport(create_sample_map_file.out)
+  Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport(create_sample_map_file.out,GatherVcfs_step.out[0].collect(),GatherVcfs_step.out[1].collect())
 
-  //Combine_normalCallsUsing_CreateSomaticPanelOfNormals(Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport.out)
+  Combine_normalCallsUsing_CreateSomaticPanelOfNormals(Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport.out)
 
 
 

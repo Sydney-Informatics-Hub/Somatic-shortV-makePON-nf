@@ -16,31 +16,27 @@ nextflow.enable.dsl=2
 
 process Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport {
 
-        tag "GenomicsDBImport"
+        tag "Create_GenomicsDB"
         publishDir "${params.outDir}", mode:'copy'
 
         input:        
 	        path sample_path_map_file
+                path ('*')
+                path ('*')
 
         output:
-                path 'pon_db'
+                path pon_db
 
 
-        script:
-
-        
+        shell:
         '''
-         gatk --java-options "-Xmx4g -Xms4g" \
-              --java-options "-DGATK_STACKTRACE_ON_USER_EXCEPTION=true" \  
-                GenomicsDBImport \
+         gatk --java-options "-DGATK_STACKTRACE_ON_USER_EXCEPTION=true" GenomicsDBImport \
                 --sample-name-map sample_map_vcf.txt \
                 --overwrite-existing-genomicsdb-workspace \
                 --genomicsdb-workspace-path pon_db \
                 --reader-threads 3 \
                 --tmp-dir !{params.temp_dir} \
                 --intervals !{params.intervalList_path}/100M_primary_interval.list
-
-
         '''
 
 
