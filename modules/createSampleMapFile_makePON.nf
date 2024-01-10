@@ -4,7 +4,7 @@
 nextflow.enable.dsl=2
 
 
-process create_sample_map_file {
+process createSampleMapFile_makePON {
     
         tag "create_sample_map_file $bam_id"
         publishDir "${params.outDir}", mode:'copy'

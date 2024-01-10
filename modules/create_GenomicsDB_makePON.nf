@@ -14,7 +14,7 @@ nextflow.enable.dsl=2
 */
 //params.sample_map_vcfs = "Somatic-ShortV/nextflow/make_PON/All_6_make_PON/sample_map_vcf.txt"
 
-process Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport {
+process create_GenomicsDB_makePON {
 
         tag "Create_GenomicsDB"
         publishDir "${params.outDir}", mode:'copy'

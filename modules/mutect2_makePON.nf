@@ -38,7 +38,7 @@ params.bams = "$base_path/bams/M10_reads/*-{Nor,Tum}.recal.bam"
 */
 
 
-process run_Mutect2_eachNormalSample_splitGatherApproach  {
+process mutect2_makePON  {
 
         tag "Mutect2 $bam_id $splitIntervalNumber"
 

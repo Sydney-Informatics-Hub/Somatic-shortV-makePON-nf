@@ -14,7 +14,7 @@ path ('*') from vcf_per_interval_ch.collect()
 */
 
 
-process GatherVcfs_step {
+process GatherVcfs_makePON {
 
         tag "GatherVcfs_step $bam_id"
         publishDir "${params.outDir}", mode:'copy'

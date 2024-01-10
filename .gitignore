@@ -2,7 +2,6 @@
 *.log
 *.o
 *.e
-.nextflow.log*
 
 # Ignore temporary files
 temp/
@@ -13,10 +12,11 @@ config.txt
 # Ignore the  work folder
 work
 
-
 # Ignore the  results folder
 results
 
+# Input samples csv file
+samples.csv
 
-
-
+# Ignore temp_dir
+temp_dir

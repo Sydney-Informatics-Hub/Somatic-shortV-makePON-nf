@@ -4,7 +4,7 @@
 nextflow.enable.dsl=2
 
 
-process Combine_normalCallsUsing_CreateSomaticPanelOfNormals {
+process createSomaticPanelOfNormals_makePON {
 
 	tag "CreateSomaticPanelOfNormals"
         publishDir "${params.outDir}", mode:'copy'

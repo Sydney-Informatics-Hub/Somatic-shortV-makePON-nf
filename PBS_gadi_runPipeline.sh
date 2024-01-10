@@ -23,15 +23,17 @@ module load gatk/4.1.8.1
 export NXF_SINGULARITY_CACHEDIR=/scratch/er01/ndes8648/pipeline_work/nextflow/INFRA-83-Somatic-ShortV/singularity_cache
 # Fill in these variables for your run
 ref=/g/data/er01/SIH-HPC-WGS/Reference
-samples=/scratch/er01/ndes8648/pipeline_work/nextflow/INFRA-83-Somatic-ShortV/Somatic-shortV-nf/sample.tsv
+samples=/scratch/er01/ndes8648/pipeline_work/nextflow/INFRA-83-Somatic-ShortV/test_files_for_Georgie/samples.csv
 whoami=npd561
-path_to_intervalList=/scratch/er01/ndes8648/pipeline_work/nextflow/INFRA-83-Somatic-ShortV/Somatic-shortV-nf/modules/scatter_files
+path_to_intervalList=/scratch/er01/ndes8648/pipeline_work/nextflow/INFRA-83-Somatic-ShortV/scatter_files
 outDir=results
-temp_dir=/scratch/er01/ndes8648/pipeline_work/nextflow/INFRA-83-Somatic-ShortV/Somatic-shortV-makePON-nf/temp_dir
+temp_dir=/scratch/er01/ndes8648/pipeline_work/nextflow/INFRA-83-Somatic-ShortV/Somatic-shortV-nf_noEmit/Somatic-shortV-nf_start_2024_main/Somatic-shortV-makePON-nf/temp_dir
+
 
 # https://opus.nci.org.au/display/Help/FAQ+2%3A+What+does+exceeded+memory+allocation+mean
 # https://opus.nci.org.au/display/Help/Queue+Limits 
 
+mkdir temp_dir
 
 # Run the pipeline (remove annotsv if not needed)
 nextflow run main.nf -resume \

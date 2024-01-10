@@ -9,12 +9,12 @@ nextflow.enable.dsl=2
 
 
 // Import subworkflows to be run in the workflow
-include { checkInputs                                                    } from './modules/check_cohort'
-include { run_Mutect2_eachNormalSample_splitGatherApproach               } from './modules/run_Mutect2_eachNormalSample_splitGatherApproach'
-include { GatherVcfs_step                                                } from './modules/GatherVcfs_step'
-include { create_sample_map_file                                         } from './modules/create_sample_map_file'
-include { Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport     } from './modules/Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport'
-include { Combine_normalCallsUsing_CreateSomaticPanelOfNormals           } from './modules/Combine_normalCallsUsing_CreateSomaticPanelOfNormals'
+include { checkInputs                                                    } from './modules/check_cohort_makePON'
+include { mutect2_makePON                                                } from './modules/mutect2_makePON'
+include { GatherVcfs_makePON                                             } from './modules/GatherVcfs_makePON'
+include { createSampleMapFile_makePON                                    } from './modules/createSampleMapFile_makePON'
+include { create_GenomicsDB_makePON                                      } from './modules/create_GenomicsDB_makePON'
+include { createSomaticPanelOfNormals_makePON                            } from './modules/createSomaticPanelOfNormals_makePON'
 
 
 
@@ -116,7 +116,7 @@ workflow {
 
   // Split cohort file to collect info for each sample
 	bam_pair_ch = checkInputs.out
-		.splitCsv(header: true, sep:"\t")
+		.splitCsv(header: true, sep:",")
 		.map { row -> tuple(row.sampleID, file(row.bam_N), file(row.bam_T))}
 	
 
@@ -126,15 +126,15 @@ workflow {
 	//Run the processes 
 	
   
-  run_Mutect2_eachNormalSample_splitGatherApproach(bam_pair_ch,params.intervalList)
+  mutect2_makePON(bam_pair_ch,params.intervalList)
 
-  GatherVcfs_step(run_Mutect2_eachNormalSample_splitGatherApproach.out.collect(),bam_pair_ch)
+  GatherVcfs_makePON(mutect2_makePON.out.collect(),bam_pair_ch)
 
-  create_sample_map_file(GatherVcfs_step.out[0].collect())
+  createSampleMapFile_makePON(GatherVcfs_makePON.out[0].collect())
   
-  Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport(create_sample_map_file.out,GatherVcfs_step.out[0].collect(),GatherVcfs_step.out[1].collect())
+  create_GenomicsDB_makePON(createSampleMapFile_makePON.out,GatherVcfs_makePON.out[0].collect(),GatherVcfs_makePON.out[1].collect())
 
-  Combine_normalCallsUsing_CreateSomaticPanelOfNormals(Create_GenomicsDB_from_normalMutect2Calls_GenomicsDBImport.out)
+  createSomaticPanelOfNormals_makePON(create_GenomicsDB_makePON.out)
 
 
 
